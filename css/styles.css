@@ -56,3 +56,28 @@ div#footer {
     height: 100%;
     margin: 0px;
 }
+@media screen and (orientation:portrait) {
+    div#footer {
+        position: absolute;
+        clear: both;
+        width: 100%;
+        max-height: 240px;
+        bottom: 0;
+        /* stick to bottom */
+        background: #fff;
+        border-top: 1px solid #000;
+    }
+}
+@media screen and (orientation:landscape) {
+    div#footer {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #000000;
+        bottom: 0;
+        clear: both;
+        height: 80%;
+        position: absolute;
+        right: 0;
+        top: 45px;
+        width: 45%;
+    }
+}

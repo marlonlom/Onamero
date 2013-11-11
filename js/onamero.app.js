@@ -1,4 +1,4 @@
-var Onamero = (function (w, hb, google) {
+var Onamero = (function (w, hb) {
     "use strict";
     var o = {};
     o['gmapsLibraryLoaded'] = false;
@@ -33,7 +33,7 @@ var Onamero = (function (w, hb, google) {
     };
 
     var showMapScreen = function () {
-        w.document.querySelector('body').innerHTML = templates['maps'];
+        w.document.body.appendChild(templates['maps']);
         this.initializeMap();
     };
     
@@ -47,6 +47,6 @@ var Onamero = (function (w, hb, google) {
     o['showOfflineView'] = showOfflineScreen;
 
     return o;
-})(window, Handlebars, google);
+})(window, Handlebars);
 
 window.Onamero = Onamero;
