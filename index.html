@@ -9,19 +9,18 @@
         <meta name="description" content="TSP Routing Demo">
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width ">
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/onamero.app.js"></script>
         <script type="text/javascript">
-            /*function initialize() {*/
-
-
             document.addEventListener("online", function(e) {
-                window.Onamero.showAlert('online', 'Hay internet');
+                Onamero.gmapsLibraryLoaded = true;
+                Onamero.showMappingView();
             }, false);
 
             document.addEventListener("offline", function(e) {
-                window.Onamero.showAlert('offline', 'No hay internet');
+                Onamero.gmapsLibraryLoaded = false;
+                Onamero.showOfflineView();
             }, false);
 
             document.addEventListener("deviceready", function(e) {
@@ -33,30 +32,14 @@
                 }
                 if ((navigator.network.connection.type).toUpperCase() != "NONE" &&
                     (navigator.network.connection.type).toUpperCase() != "UNKNOWN") {
-                    window.Onamero.showAlert('online', 'Hay internet');
+                    Onamero.showMappingView();
                 }
-
-                /*var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
-                    var myOptions = {
-                        zoom: 5,
-                        center: detLatLng,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-                    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-
-                    var currCenter = map.getCenter();
-
-                    google.maps.event.addDomListener(window, 'resize', function() {
-                        map.setCenter(currCenter);
-                    });*/
             }, false);
-
-            /*}*/
         </script>
     </head>
     
     <body>
+        <script id="mapping-view-template" type="text/x-handlebars-template">
         <div id="container">
             <div id="header">
                 <span>aca va a haber imagenes</span>
@@ -69,7 +52,9 @@
             <div id="footer">
                 <span>aca va a haber pie de pagina</span>
             </div>
-        </div>
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        </div>            
+        </script>
     </body>
 
 </html>
