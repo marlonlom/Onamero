@@ -14,6 +14,15 @@
         <script type="text/javascript" charset="utf-8" src="js/onamero.app.js"></script>
         <script type="text/javascript">
             function initialize() {
+
+                document.addEventListener("online", function(e) {
+                    window.Onamero.showAlert('online', 'Hay internet');
+                }, false);
+
+                document.addEventListener("offline", function(e) {
+                    window.Onamero.showAlert('offline', 'No hay internet');
+                }, false);
+
                 document.addEventListener("deviceready", function(e) {
                     if (window.navigator && window.navigator.splashscreen) {
                         setTimeout(function() {
@@ -25,14 +34,6 @@
                         }
                     }
                     window.Onamero.showAlert('Listo', 'Página cargada');
-
-                    document.addEventListener("offline", function(e) {
-                        window.Onamero.showAlert('offline', 'No hay internet');
-                    }, false);
-
-                    document.addEventListener("online", function(e) {
-                        window.Onamero.showAlert('online', 'Hay internet');
-                    }, false);
 
                     /*var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
                     var myOptions = {
