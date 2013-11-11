@@ -85,12 +85,30 @@ button#btnRollbackLocations {
 .roundtrip-add_points {
     display:none;
 }
+.marker-item {
+    display:block;
+}
+.marker-item {
+    border-bottom: 0.1em solid #EEEEEE;
+    cursor: pointer;
+    display: block;
+    font-size: 75%;
+    margin-top: 1em;
+    padding-bottom: 0.5em;
+}
 @media screen and (orientation:portrait) {
     .roundtrip-welcome > h4, .roundtrip-welcome > div {
         display:none;
     }
     .roundtrip-add_points {
         height:160px;
+    }
+    .markers-list {
+        display: block;
+        height: 64%;
+        overflow: auto;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 }
 @media screen and (orientation:landscape) {
@@ -106,5 +124,13 @@ button#btnRollbackLocations {
     }
     .roundtrip-welcome div {
         display: block;
+    }
+    .markers-list {
+        display: block;
+        height: 12em;
+        overflow: auto;
+        width: 96%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 }

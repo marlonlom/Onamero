@@ -2,18 +2,14 @@ var Onamero = (function (w, hb, $) {
     "use strict";
     var o = {};
     o['gmapsLibraryLoaded'] = false;
-    
-    
-    var devOrientHandler = function(e){
-        console.log('devOrientHandler',{evt:e});
-    };
-    w.addEventListener('orientationchange', devOrientHandler, false);
-    
-    var mql = window.matchMedia("(orientation: portrait)");
-    w.portrait = false;
-    mql.addListener(function (m) {
-        w.portrait = m.matches;
-    });
+    var map;
+    var markers;
+    var manageMarkersEvent;
+    var currStep = 1;
+    var markerCount = 0;
+    var markerLimit = 5;
+
+    w.portrait = window.innerHeight > window.innerWidth;
 
     var templates = {};
     templates['mapping_tpl'] = hb.templates['mapping'];
@@ -30,52 +26,8 @@ var Onamero = (function (w, hb, $) {
         return 'click';
     };
 
-    var map;
-
-    var initializeMap = function () {
-        var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
-        var myOptions = {
-            zoom: 5,
-            center: detLatLng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(w.document.getElementById("map_canvas"), myOptions);
-
-
-        var currCenter = map.getCenter();
-
-        google.maps.event.addDomListener(w, 'resize', function () {
-            map.setCenter(detLatLng);
-        });
-
-        prepareMapControls(google);
-    };
-
-    var markers;
-    var manageMarkersEvent;
-
-    var prepareMapControls = function (google) {
-        $('button#btnToogleRoundTrip').on(clickEvt(), function (e) {
-            e.preventDefault();
-            if (w.portrait === true) {
-                $('#footer').css('height', '200px');
-                $('.paddedContent').css('height', '53%');
-            } else {
-                $('#footer').css('height', '84%');
-                $('.paddedContent').css('height', '100%');
-            }
-            markers = new google.maps.MVCArray();
-            $('.roundtrip-box').hide();
-            $('section.roundtrip-add_points').show();
-            manageMarkersEvent = google.maps.event.addListener(map, 'click', function (e) {
-                console.log(e);
-            });
-        });
-        $('button#btnRollbackLocations').on(clickEvt(), function (e) {
-            e.preventDefault();
-            google.maps.event.removeListener(manageMarkersEvent);
-            manageMarkersEvent = null;
-            markers = null;
+    var handleFooterResize = function () {
+        if (currStep === 1) {
             if (w.portrait === true) {
                 $('#footer').css('height', '30px');
                 $('.paddedContent').css('height', '100%');
@@ -83,6 +35,87 @@ var Onamero = (function (w, hb, $) {
                 $('#footer').css('height', '84%');
                 $('.paddedContent').css('height', '100%');
             }
+        } else if (currStep > 1) {
+            if (w.portrait === true) {
+                $('#footer').css('height', '200px');
+                $('.paddedContent').css('height', '53%');
+            } else {
+                $('#footer').css('height', '84%');
+                $('.paddedContent').css('height', '100%');
+            }
+        }
+    };
+
+    var initializeMap = function () {
+        google.maps.visualRefresh = true;
+        var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
+        var myOptions = {
+            zoom: 8,
+            center: detLatLng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(w.document.getElementById("map_canvas"), myOptions);
+
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(detLatLng);
+        map.fitBounds(bounds);
+        var blistener = google.maps.event.addListener(map, 'bounds_changed', function (event) {
+            if (this.getZoom() > 12) {
+                this.setZoom(12);
+            }
+            google.maps.event.removeListener(blistener);
+        });
+
+        var currCenter = map.getCenter();
+
+        google.maps.event.addDomListener(w, 'resize', function () {
+            w.portrait = window.innerHeight > window.innerWidth;
+            map.setCenter(detLatLng);
+            handleFooterResize();
+        });
+
+        prepareMapControls(google);
+    };
+
+    var prepareMapControls = function (google) {
+        var markerImg = "http://google-maps-icons.googlecode.com/files/gray_nro_.png";
+        $('button#btnToogleRoundTrip').on(clickEvt(), function (e) {
+            e.preventDefault();
+            currStep = 2;
+            handleFooterResize();
+            markers = new google.maps.MVCArray();
+            $('.roundtrip-box').hide();
+            $('section.roundtrip-add_points').show();
+
+            manageMarkersEvent = google.maps.event.addListener(map, 'click', function (e) {
+                if (markerCount < markerLimit) {
+                    var mkc = (markerCount + 1);
+                    var mk_title = markerCount === 1 ? 'ubicación #1' : 'ubicación #' + mkc;
+                    var cmarker = new google.maps.Marker({
+                        position: e.latLng,
+                        icon: 'http://google-maps-icons.googlecode.com/files/gray0' + mkc + '.png',
+                        map: map,
+                        title: mk_title
+                    });
+                    $('.marker0' + mkc).html('#' + mkc + '.&nbsp;' + e.latLng.toString());
+                    markers.insertAt(markerCount, cmarker);
+                    markerCount++;
+                }
+            });
+        });
+        $('button#btnRollbackLocations').on(clickEvt(), function (e) {
+            e.preventDefault();
+            markers.forEach(function(mkr,i){
+                mkr.setMap(null);
+            });
+            markers.clear();
+            $('.marker-item').html('');
+            google.maps.event.removeListener(manageMarkersEvent);
+            manageMarkersEvent = null;
+            markers = null;
+            currStep = 1;
+            markerCount = 0;
+            handleFooterResize();
             $('.roundtrip-box').hide();
             $('section.roundtrip-welcome').show();
         });
@@ -91,7 +124,7 @@ var Onamero = (function (w, hb, $) {
     var loadGoogleMapsScript = function () {
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&' +
+        script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&region=CO&' +
             'callback=Onamero.initializeMap';
         document.body.appendChild(script);
     };

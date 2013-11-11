@@ -18,6 +18,13 @@
         <section class="roundtrip-add_points roundtrip-box">
             <h4>Agregar coordenadas</h4>
             <div>Haz clic en el mapa, puedes agregar hasta 5 puntos.</div>
+            <div class="markers-list">
+                <span class="marker-item marker01"></span>
+                <span class="marker-item marker02"></span>
+                <span class="marker-item marker03"></span>
+                <span class="marker-item marker04"></span>
+                <span class="marker-item marker05"></span>
+            </div>
             <button id="btnCommitLocations" type="button">Continuar</button>
             <button id="btnRollbackLocations" type="button">Volver</button>
         </section>
