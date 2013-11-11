@@ -23,16 +23,25 @@
 
 
                 var currCenter = map.getCenter();
-                
+
                 google.maps.event.addDomListener(window, 'resize', function() {
                     map.setCenter(currCenter);
                 });
 
-                window.addEventListener("offline", function(e) {
+                document.addEventListener("deviceready", function(e) {
+                    navigator.notification.alert(
+                        'Application ready!', // message
+                    function(){}, // callback
+                    'Loaded', // title
+                    'OK' // buttonName
+                    );
+                }, false);
+
+                document.addEventListener("offline", function(e) {
                     alert("offline");
                 }, false);
 
-                window.addEventListener("online", function(e) {
+                document.addEventListener("online", function(e) {
                     alert("online");
                 }, false);
             }
