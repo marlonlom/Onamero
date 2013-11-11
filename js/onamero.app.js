@@ -14,6 +14,6 @@ var Onamero = (function () {
     o['showAlert'] = customAlertHandling;
 
     return o;
-}();
+})();
 
 window.Onamero = Onamero;
