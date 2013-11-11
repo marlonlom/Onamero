@@ -11,16 +11,30 @@
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width ">
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-        
         <script type="text/javascript">
             function initialize() {
-                var latlng = new google.maps.LatLng(4.587376, -74.075317);
+                var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
                 var myOptions = {
-                    zoom: 8,
-                    center: latlng,
+                    zoom: 5,
+                    center: detLatLng,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
                 var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+
+                var currCenter = map.getCenter();
+                
+                google.maps.event.addDomListener(window, 'resize', function() {
+                    map.setCenter(currCenter);
+                });
+
+                window.addEventListener("offline", function(e) {
+                    alert("offline");
+                }, false);
+
+                window.addEventListener("online", function(e) {
+                    alert("online");
+                }, false);
             }
         </script>
     </head>
