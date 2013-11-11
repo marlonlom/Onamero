@@ -6,13 +6,12 @@
     <!-- Some features-->
     <feature name="http://api.phonegap.com/1.0/device" />
     <feature name="http://api.phonegap.com/1.0/network" />
-    <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <!-- Some preferences-->
     <gap:platform name="android" />
     <gap:platform name="blackberry" />
     <gap:platform name="winphone" />
     <!-- Some preferences-->
-    <preference name="phonegap-version" value="3.1.0" />
+    <preference name="phonegap-version" value="2.9.0" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
     <!-- Some preferences (iOS)-->
