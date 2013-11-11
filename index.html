@@ -11,44 +11,34 @@
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width ">
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/onamero.app.js"></script>
         <script type="text/javascript">
-            document.addEventListener("deviceready", function(e) {
-                navigator.notification.alert(
-                    'Application ready!', // message
-
-                function() {}, // callback
-                'Loaded', // title
-                'OK' // buttonName
-                );
-            }, false);
-
-            document.addEventListener("offline", function(e) {
-                alert("offline");
-            }, false);
-
-            document.addEventListener("online", function(e) {
-                alert("online");
-            }, false); 
-            
-
             function initialize() {
-                var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
-                var myOptions = {
-                    zoom: 5,
-                    center: detLatLng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                document.addEventListener("deviceready", function(e) {
+                    window.Onamero.showAlert('Listo', 'Página cargada');
+                    var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
+                    var myOptions = {
+                        zoom: 5,
+                        center: detLatLng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
 
-                var currCenter = map.getCenter();
+                    var currCenter = map.getCenter();
 
-                google.maps.event.addDomListener(window, 'resize', function() {
-                    map.setCenter(currCenter);
-                });
+                    google.maps.event.addDomListener(window, 'resize', function() {
+                        map.setCenter(currCenter);
+                    });
+                }, false);
 
+                document.addEventListener("offline", function(e) {
+                    window.Onamero.showAlert('offline', 'No hay internet');
+                }, false);
 
-
+                document.addEventListener("online", function(e) {
+                    window.Onamero.showAlert('online', 'Hay internet');
+                }, false);
             }
         </script>
     </head>

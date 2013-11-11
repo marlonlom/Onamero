@@ -1,15 +1,19 @@
 var Onamero = (function () {
     "use strict";
-    var module = {};
-    var defaultCenter = new g.maps.LatLng(4.587376, -74.075317);
-    var mapOptions = {
-        zoom: 5,
-        center: defaultCenter,
-        mapTypeId: g.maps.MapTypeId.ROADMAP
+    var o = {};
+    o['gmapsLibraryLoaded'] = false;
+
+    var customAlertHandling = function (message, title) {
+        if (navigator.notification) {
+            navigator.notification.alert(message, null, title, 'OK');
+        } else {
+            alert(title ? (title + ": " + message) : message);
+        }
     };
-    var startMapbox = function () {
-        g.maps.visualRefresh = true;
-    }
+
+    o['showAlert'] = customAlertHandling;
+
+    return o;
 }();
 
 window.Onamero = Onamero;
