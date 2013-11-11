@@ -10,6 +10,16 @@
         </div>
     </div>
     <div id="footer">
-        <button type="button" id="btnToogleRoundTrip">Nuevo</button>
+        <section class="roundtrip-welcome roundtrip-box">
+            <h4>Iniciar recorrido</h4>
+            <div>A continuación podrá seleccionar unas cuantas coordenadas en el mapa para armar un recorrido.<br/>Con &eacute;stos se obtendr&aacute; una ruta &Oacute;ptima.</div>
+            <button id="btnToogleRoundTrip" type="button">Iniciar</button>
+        </section>
+        <section class="roundtrip-add_points roundtrip-box">
+            <h4>Agregar coordenadas</h4>
+            <div>Haz clic en el mapa, puedes agregar hasta 5 puntos.</div>
+            <button id="btnCommitLocations" type="button">Continuar</button>
+            <button id="btnRollbackLocations" type="button">Volver</button>
+        </section>
     </div>
 </div>

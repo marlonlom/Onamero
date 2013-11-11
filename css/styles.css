@@ -3,10 +3,10 @@ html, body {
     padding: 0;
     height: 100%;
     background: fff;
-    font-family: arial, sans-serif;
+    font-family:'Roboto', sans-serif;
     font-size: small;
     overflow: hidden;
-    color: #333;
+    color: #111;
 }
 div#header {
     border-bottom: 1px solid #000;
@@ -49,7 +49,7 @@ div#footer {
     min-height: 30px;
     bottom: 0;
     /* stick to bottom */
-    background: #fff;
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.75);
     border-top: 1px solid #000;
 }
 .paddedContent {
@@ -66,14 +66,36 @@ img.dane_logo02 {
     height: 40px;
     width: 100px;
 }
+button#btnToogleRoundTrip, button#btnCommitLocations {
+    position:absolute;
+    bottom:5px;
+    left:5px;
+}
+button#btnRollbackLocations {
+    position:absolute;
+    bottom:5px;
+    right:5px;
+}
+.roundtrip-box {
+    padding:5px;
+}
+.roundtrip-box h4 {
+    margin: 2px 2px 10px;
+}
+.roundtrip-add_points {
+    display:none;
+}
 @media screen and (orientation:portrait) {
-    div#footer {
-        max-height: 240px;
+    .roundtrip-welcome > h4, .roundtrip-welcome > div {
+        display:none;
+    }
+    .roundtrip-add_points {
+        height:160px;
     }
 }
 @media screen and (orientation:landscape) {
     div#content {
-        width: 54%;
+        width: 55%;
     }
     div#footer {
         border: 1px solid #000000;
@@ -81,5 +103,8 @@ img.dane_logo02 {
         right: 0;
         top: 50px;
         width: 45%;
+    }
+    .roundtrip-welcome div {
+        display: block;
     }
 }

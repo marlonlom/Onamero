@@ -2,6 +2,18 @@ var Onamero = (function (w, hb, $) {
     "use strict";
     var o = {};
     o['gmapsLibraryLoaded'] = false;
+    
+    
+    var devOrientHandler = function(e){
+        console.log('devOrientHandler',{evt:e});
+    };
+    w.addEventListener('orientationchange', devOrientHandler, false);
+    
+    var mql = window.matchMedia("(orientation: portrait)");
+    w.portrait = false;
+    mql.addListener(function (m) {
+        w.portrait = m.matches;
+    });
 
     var templates = {};
     templates['mapping_tpl'] = hb.templates['mapping'];
@@ -14,6 +26,12 @@ var Onamero = (function (w, hb, $) {
         }
     };
 
+    var clickEvt = function () {
+        return 'click';
+    };
+
+    var map;
+
     var initializeMap = function () {
         var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
         var myOptions = {
@@ -21,7 +39,7 @@ var Onamero = (function (w, hb, $) {
             center: detLatLng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        var map = new google.maps.Map(w.document.getElementById("map_canvas"), myOptions);
+        map = new google.maps.Map(w.document.getElementById("map_canvas"), myOptions);
 
 
         var currCenter = map.getCenter();
@@ -29,21 +47,60 @@ var Onamero = (function (w, hb, $) {
         google.maps.event.addDomListener(w, 'resize', function () {
             map.setCenter(detLatLng);
         });
+
+        prepareMapControls(google);
     };
 
-    var loadGoogleMapsScript = function() {
-       var script = document.createElement('script');
-       script.type = 'text/javascript';
-       script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&' +
-           'callback=Onamero.initializeMap';
-       document.body.appendChild(script);
-   };
-    
+    var markers;
+    var manageMarkersEvent;
+
+    var prepareMapControls = function (google) {
+        $('button#btnToogleRoundTrip').on(clickEvt(), function (e) {
+            e.preventDefault();
+            if (w.portrait === true) {
+                $('#footer').css('height', '200px');
+                $('.paddedContent').css('height', '53%');
+            } else {
+                $('#footer').css('height', '84%');
+                $('.paddedContent').css('height', '100%');
+            }
+            markers = new google.maps.MVCArray();
+            $('.roundtrip-box').hide();
+            $('section.roundtrip-add_points').show();
+            manageMarkersEvent = google.maps.event.addListener(map, 'click', function (e) {
+                console.log(e);
+            });
+        });
+        $('button#btnRollbackLocations').on(clickEvt(), function (e) {
+            e.preventDefault();
+            google.maps.event.removeListener(manageMarkersEvent);
+            manageMarkersEvent = null;
+            markers = null;
+            if (w.portrait === true) {
+                $('#footer').css('height', '30px');
+                $('.paddedContent').css('height', '100%');
+            } else {
+                $('#footer').css('height', '84%');
+                $('.paddedContent').css('height', '100%');
+            }
+            $('.roundtrip-box').hide();
+            $('section.roundtrip-welcome').show();
+        });
+    };
+
+    var loadGoogleMapsScript = function () {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&' +
+            'callback=Onamero.initializeMap';
+        document.body.appendChild(script);
+    };
+
     var showMapScreen = function () {
         $('body').html(templates.mapping_tpl({}));
         loadGoogleMapsScript();
     };
-    
+
     var showOfflineScreen = function () {
         $('body').html('');
     };
