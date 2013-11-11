@@ -12,6 +12,25 @@
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript">
+            document.addEventListener("deviceready", function(e) {
+                navigator.notification.alert(
+                    'Application ready!', // message
+
+                function() {}, // callback
+                'Loaded', // title
+                'OK' // buttonName
+                );
+            }, false);
+
+            document.addEventListener("offline", function(e) {
+                alert("offline");
+            }, false);
+
+            document.addEventListener("online", function(e) {
+                alert("online");
+            }, false); 
+            
+
             function initialize() {
                 var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
                 var myOptions = {
@@ -28,22 +47,8 @@
                     map.setCenter(currCenter);
                 });
 
-                document.addEventListener("deviceready", function(e) {
-                    navigator.notification.alert(
-                        'Application ready!', // message
-                    function(){}, // callback
-                    'Loaded', // title
-                    'OK' // buttonName
-                    );
-                }, false);
 
-                document.addEventListener("offline", function(e) {
-                    alert("offline");
-                }, false);
 
-                document.addEventListener("online", function(e) {
-                    alert("online");
-                }, false);
             }
         </script>
     </head>
