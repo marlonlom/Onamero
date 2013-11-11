@@ -19,6 +19,10 @@
                         setTimeout(function() {
                             window.navigator.splashscreen.hide();
                         }, 1000);
+                        if ((navigator.network.connection.type).toUpperCase() != "NONE" &&
+                            (navigator.network.connection.type).toUpperCase() != "UNKNOWN") {
+                            window.Onamero.showAlert('online', 'Hay internet');
+                        }
                     }
                     window.Onamero.showAlert('Listo', 'Página cargada');
 
@@ -29,7 +33,7 @@
                     document.addEventListener("online", function(e) {
                         window.Onamero.showAlert('online', 'Hay internet');
                     }, false);
-                    
+
                     /*var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
                     var myOptions = {
                         zoom: 5,
