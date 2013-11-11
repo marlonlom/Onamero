@@ -13,29 +13,31 @@
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/onamero.app.js"></script>
         <script type="text/javascript">
-            function initialize() {
+            /*function initialize() {*/
 
-                document.addEventListener("online", function(e) {
+
+            document.addEventListener("online", function(e) {
+                window.Onamero.showAlert('online', 'Hay internet');
+            }, false);
+
+            document.addEventListener("offline", function(e) {
+                window.Onamero.showAlert('offline', 'No hay internet');
+            }, false);
+
+            document.addEventListener("deviceready", function(e) {
+                if (window.navigator && window.navigator.splashscreen) {
+                    setTimeout(function() {
+                        window.navigator.splashscreen.hide();
+                    }, 1000);
+
+                }
+                if ((navigator.network.connection.type).toUpperCase() != "NONE" &&
+                    (navigator.network.connection.type).toUpperCase() != "UNKNOWN") {
                     window.Onamero.showAlert('online', 'Hay internet');
-                }, false);
+                }
+                window.Onamero.showAlert('Listo', 'Página cargada');
 
-                document.addEventListener("offline", function(e) {
-                    window.Onamero.showAlert('offline', 'No hay internet');
-                }, false);
-
-                document.addEventListener("deviceready", function(e) {
-                    if (window.navigator && window.navigator.splashscreen) {
-                        setTimeout(function() {
-                            window.navigator.splashscreen.hide();
-                        }, 1000);
-                        if ((navigator.network.connection.type).toUpperCase() != "NONE" &&
-                            (navigator.network.connection.type).toUpperCase() != "UNKNOWN") {
-                            window.Onamero.showAlert('online', 'Hay internet');
-                        }
-                    }
-                    window.Onamero.showAlert('Listo', 'Página cargada');
-
-                    /*var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
+                /*var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
                     var myOptions = {
                         zoom: 5,
                         center: detLatLng,
@@ -49,13 +51,13 @@
                     google.maps.event.addDomListener(window, 'resize', function() {
                         map.setCenter(currCenter);
                     });*/
-                }, false);
+            }, false);
 
-            }
+            /*}*/
         </script>
     </head>
     
-    <body onload="initialize()">
+    <body>
         <div id="container">
             <div id="header">
                 <span>aca va a haber imagenes</span>
