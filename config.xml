@@ -12,7 +12,7 @@
     <gap:platform name="blackberry" />
     <gap:platform name="winphone" />
     <!-- Some preferences-->
-    <preference name="phonegap-version" value="3.0.0" />
+    <preference name="phonegap-version" value="3.1.0" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
     <!-- Some preferences (iOS)-->
