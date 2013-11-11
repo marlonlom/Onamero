@@ -10,9 +10,14 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width ">
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/zepto.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/handlebars.templates.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/onamero.app.js"></script>
         <script type="text/javascript">
+            
+            if (!$) {$ = Zepto};
+            
             document.addEventListener("online", function(e) {
                 Onamero.gmapsLibraryLoaded = true;
                 Onamero.showMappingView();
@@ -39,20 +44,6 @@
     </head>
     
     <body>
-        <div id="container">
-            <div id="header">
-                <span>aca va a haber imagenes</span>
-            </div>
-            <div id="content">
-                <div class="paddedContent">
-                    <div id="map_canvas" style="width: 100%; height: 100%;">cargando...</div>
-                </div>
-            </div>
-            <div id="footer">
-                <span>aca va a haber pie de pagina</span>
-            </div>
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-        </div>
     </body>
 
 </html>

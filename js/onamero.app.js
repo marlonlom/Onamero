@@ -1,11 +1,10 @@
-var Onamero = (function (w, hb) {
+var Onamero = (function (w, hb, $) {
     "use strict";
     var o = {};
     o['gmapsLibraryLoaded'] = false;
 
     var templates = {};
-
-    templates['maps'] = hb.compile(w.document.querySelector('#mapping-view-template').innerHTML);
+    templates['mapping_tpl'] = hb.templates['mapping'];
 
     var customAlertHandling = function (message, title) {
         if (w.navigator.notification) {
@@ -28,25 +27,33 @@ var Onamero = (function (w, hb) {
         var currCenter = map.getCenter();
 
         google.maps.event.addDomListener(w, 'resize', function () {
-            map.setCenter(currCenter);
+            map.setCenter(detLatLng);
         });
     };
 
+    var loadGoogleMapsScript = function() {
+       var script = document.createElement('script');
+       script.type = 'text/javascript';
+       script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&' +
+           'callback=Onamero.initializeMap';
+       document.body.appendChild(script);
+   };
+    
     var showMapScreen = function () {
-        w.document.body.appendChild(templates['maps']);
-        this.initializeMap();
+        $('body').html(templates.mapping_tpl({}));
+        loadGoogleMapsScript();
     };
     
     var showOfflineScreen = function () {
-        w.document.querySelector('body').innerHTML = '<b>No hay conexi&oacute;n a internet.</b>';
-        this.initializeMap();
+        $('body').html('');
     };
 
     o['showAlert'] = customAlertHandling;
     o['showMappingView'] = showMapScreen;
+    o['initializeMap'] = initializeMap;
     o['showOfflineView'] = showOfflineScreen;
 
     return o;
-})(window, Handlebars);
+})(window, Handlebars, $);
 
 window.Onamero = Onamero;

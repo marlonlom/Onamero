@@ -1,6 +1,8 @@
 <div id="container">
     <div id="header">
-        <span>aca va a haber imagenes</span>
+        <img src="img/header01.png" class="dane_logo01">
+        <img src="img/header02.png" class="dane_logo02">
+        <div style='clear:both'></div>
     </div>
     <div id="content">
         <div class="paddedContent">
@@ -8,7 +10,6 @@
         </div>
     </div>
     <div id="footer">
-        <span>aca va a haber pie de pagina</span>
+        <button type="button" id="btnToogleRoundTrip">Nuevo</button>
     </div>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 </div>
