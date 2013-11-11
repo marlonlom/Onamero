@@ -15,8 +15,22 @@
         <script type="text/javascript">
             function initialize() {
                 document.addEventListener("deviceready", function(e) {
+                    if (window.navigator && window.navigator.splashscreen) {
+                        setTimeout(function() {
+                            window.navigator.splashscreen.hide();
+                        }, 1000);
+                    }
                     window.Onamero.showAlert('Listo', 'Página cargada');
-                    var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
+
+                    document.addEventListener("offline", function(e) {
+                        window.Onamero.showAlert('offline', 'No hay internet');
+                    }, false);
+
+                    document.addEventListener("online", function(e) {
+                        window.Onamero.showAlert('online', 'Hay internet');
+                    }, false);
+                    
+                    /*var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
                     var myOptions = {
                         zoom: 5,
                         center: detLatLng,
@@ -29,16 +43,9 @@
 
                     google.maps.event.addDomListener(window, 'resize', function() {
                         map.setCenter(currCenter);
-                    });
+                    });*/
                 }, false);
 
-                document.addEventListener("offline", function(e) {
-                    window.Onamero.showAlert('offline', 'No hay internet');
-                }, false);
-
-                document.addEventListener("online", function(e) {
-                    window.Onamero.showAlert('online', 'Hay internet');
-                }, false);
             }
         </script>
     </head>
@@ -50,7 +57,7 @@
             </div>
             <div id="content">
                 <div class="paddedContent">
-                    <div id="map_canvas" style="width: 100%; height: 100%;"></div>
+                    <div id="map_canvas" style="width: 100%; height: 100%;">cargando...</div>
                 </div>
             </div>
             <div id="footer">
