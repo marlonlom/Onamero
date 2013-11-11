@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rutas</title>
+        <link rel="stylesheet" href="css/styles.css" type="text/css" media="screen">
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width ">
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript">
+            function initialize() {
+                var latlng = new google.maps.LatLng(4.587376, -74.075317);
+                var myOptions = {
+                    zoom: 8,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            }
+        </script>
+    </head>
+    
+    <body onload="initialize()">
+        <div id="container">
+            <div id="header">
+                <span>aca va a haber imagenes</span>
+            </div>
+            <div id="content">
+                <div class="paddedContent">
+                    <div id="map_canvas" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+            <div id="footer">
+                <span>aca va a haber pie de pagina</span>
+            </div>
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="gov.dane.sige.phonegap.tsp_routes" version="1.0.0">
+    <name>Prorotipo Rutas</name>
+    <description>Phonegap Application for Routing and TSP Demos</description>
+    <author href="http://www.dane.gov.co" email="sige@dane.gov.co">SIGE</author>
+    <!-- Some features-->
+    <feature name="http://api.phonegap.com/1.0/device" />
+    <feature name="http://api.phonegap.com/1.0/network" />
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <!-- Some preferences-->
+    <gap:platform name="android" />
+    <gap:platform name="blackberry" />
+    <gap:platform name="winphone" />
+    <!-- Some preferences-->
+    <preference name="phonegap-version" value="3.0.0" />
+    <preference name="orientation" value="default" />
+    <preference name="target-device" value="universal" />
+    <!-- Some preferences (iOS)-->
+    <preference name="exit-on-suspend" value="true" />
+    <preference name="auto-hide-splash-screen" value="false" />
+    <!-- Some preferences (Android)-->
+    <preference name="android-minSdkVersion" value="8" />
+    <preference name="android-installLocation" value="preferExternal" />
+    <!--Icon Support (Default)-->
+    <icon src="icon/default.png" />
+    <!--Icon Support (blackberry)-->
+    <icon src="icon/blackberry/icon.png" gap:platform="blackberry" />
+    <!--Icon Support (Android)-->
+    <icon src="icon/android/icon-36-ldpi.png" gap:platform="android" gap:density="ldpi" />
+    <icon src="icon/android/icon-48-mdpi.png" gap:platform="android" gap:density="mdpi" />
+    <icon src="icon/android/icon-72-hdpi.png" gap:platform="android" gap:density="hdpi" />
+    <icon src="icon/android/icon-96-xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+    <!--Icon Support (WinPhone)-->
+    <icon src="icon/winphone/icon.png" gap:platform="winphone" />
+    <icon src="icon/winphone/tileicon.png" gap:platform="winphone" gap:role="background" />
+    <!-- Access (Default)-->
+    <access origin="*" />
+    <access origin="http://127.0.0.1*" browserOnly="true" />
+</widget>
