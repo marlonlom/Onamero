@@ -1,11 +1,11 @@
-var Onamero = (function () {
+var Onamero = (function (w) {
     "use strict";
     var o = {};
     o['gmapsLibraryLoaded'] = false;
 
     var customAlertHandling = function (message, title) {
-        if (navigator.notification) {
-            navigator.notification.alert(message, null, title, 'OK');
+        if (w.navigator.notification) {
+            w.navigator.notification.alert(message, null, title, 'OK');
         } else {
             alert(title ? (title + ": " + message) : message);
         }
@@ -14,6 +14,6 @@ var Onamero = (function () {
     o['showAlert'] = customAlertHandling;
 
     return o;
-})();
+})(window);
 
 window.Onamero = Onamero;
