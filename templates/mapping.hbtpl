@@ -13,27 +13,46 @@
         <section class="roundtrip-welcome roundtrip-box">
             <h4>Iniciar recorrido</h4>
             <div>A continuación podrá seleccionar unas cuantas coordenadas en el mapa para armar un recorrido.<br/>Con &eacute;stos se obtendr&aacute; una ruta &Oacute;ptima.</div>
-            <button id="btnToogleRoundTrip" class="class="button"x" type="button">Iniciar</button>
+            <button id="btnStartRoundTrip" class="button" type="button">Iniciar</button>
         </section>
         <section class="roundtrip-add_points roundtrip-box">
             <h4>Agregar coordenadas</h4>
             <div>Haz clic en el mapa, puedes agregar hasta 5 puntos.</div>
-            <div class="markers-list">
-                <span class="marker-item marker01"></span>
-                <span class="marker-item marker02"></span>
-                <span class="marker-item marker03"></span>
-                <span class="marker-item marker04"></span>
-                <span class="marker-item marker05"></span>
-            </div>
+            <div class="markers-list"></div>
             <button id="btnCommitLocations" class="button" type="button">Continuar</button>
             <button id="btnRollbackLocations" class="button" type="button">Volver</button>
         </section>
         <section class="roundtrip-config-solver roundtrip-box">
-            <h4>Opciones </h4>
+            <h4>Opciones de ruta</h4>
             <div class="options-listbox">
-                
+                <div class="solver-travelmodebox">
+                    <label for="routeOptTravelMode">Modo de viaje</label>
+                    <select name="routeOptTravelMode" id="routeOptTravelMode">
+                        <option value="driving">Autom&oacute;vil</option>
+                        <option value="walking">A pie</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="routeOptDoOptimized">
+                        <input type="checkbox" name="routeOptDoOptimized" id="routeOptDoOptimized"/>
+                        <span>Optimizado</span>
+                    </label>
+                </div>
+                <div>
+                    <label for="routeOptAvoidHighways">
+                        <input type="checkbox" name="routeOptAvoidHighways" id="routeOptAvoidHighways"/>
+                        <span>Evitar autopistas</span>
+                    </label>
+                </div>
+                <div>
+                    <label for="routeOptAvoidTolls">
+                        <input type="checkbox" name="routeOptAvoidTolls" id="routeOptAvoidTolls"/>
+                        <span>Evitar peajes</span>
+                    </label>
+                </div>
             </div>
-            <button id="btnCommitOptions" class="button" type="button">Continuar</button>
+            <button id="btnRouteRoundtrip" class="button" type="button">Ida y vuelta</button>
+            <button id="btnRouteAZtrip" class="button" type="button">Viaje ordenado</button>
             <button id="btnRollbackOptions" class="button" type="button">Volver</button>
         </section>
     </div>

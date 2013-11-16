@@ -47,6 +47,7 @@ var Onamero = (function (w, hb, $) {
     };
 
     var initializeMap = function () {
+        handleFooterResize();
         google.maps.visualRefresh = true;
         var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
         var myOptions = {
@@ -79,7 +80,7 @@ var Onamero = (function (w, hb, $) {
     };
 
     var prepareMapControls = function (google) {
-        $('button#btnToogleRoundTrip').on(clickEvt(), function (e) {
+        $('button#btnStartRoundTrip').on(clickEvt(), function (e) {
             e.preventDefault();
             currStep = 2;
             handleFooterResize();
@@ -97,27 +98,26 @@ var Onamero = (function (w, hb, $) {
                         map: map,
                         title: mk_title
                     });
-                    $('.marker0' + mkc).html('#' + mkc + '.&nbsp;' + e.latLng.toString());
+                    $('.markers-list').append('<span class="marker-item marker'+mkc+'">'+mkc+'.&nbsp;' + e.latLng.toString()+'</span>');
                     markers.insertAt(markerCount, cmarker);
                     markerCount++;
                 }
             });
         });
-        $('button#btnRollbackLocations').on(clickEvt(), function (e) {
+        $('button#btnCommitLocations').on(clickEvt(), function (e) {
             e.preventDefault();
-            markers.forEach(function (mkr, i) {
-                mkr.setMap(null);
-            });
-            markers.clear();
-            $('.marker-item').html('');
+            var len = markers.getLength();
+            if (len < 2){
+                customAlertHandling('Debe seleccionar 2 puntos o más ','Información');
+                return;
+            }
             google.maps.event.removeListener(manageMarkersEvent);
             manageMarkersEvent = null;
             markers = null;
-            currStep = 1;
-            markerCount = 0;
+            currStep = 2;
             handleFooterResize();
             $('.roundtrip-box').hide();
-            $('section.roundtrip-welcome').show();
+            $('section.roundtrip-config-solver').show();
         });
         $('button#btnRollbackLocations').on(clickEvt(), function (e) {
             e.preventDefault();

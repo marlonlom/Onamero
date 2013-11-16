@@ -66,12 +66,26 @@ img.dane_logo02 {
     height: 40px;
     width: 100px;
 }
-button#btnToogleRoundTrip, button#btnCommitLocations {
+button#btnStartRoundTrip, button#btnCommitLocations {
     position:absolute;
     bottom:5px;
     left:5px;
 }
-button#btnRollbackLocations {
+button#btnRouteRoundtrip {
+    position:absolute;
+    bottom:5px;
+    left:5px;
+    width: 7em;
+    text-align: left;
+}
+button#btnRouteAZtrip {
+    position:absolute;
+    bottom:5px;
+    left:5px;
+    width: 8em;
+    text-align: left;
+}
+button#btnRollbackLocations, button#btnRollbackOptions {
     position:absolute;
     bottom:5px;
     right:5px;
@@ -88,20 +102,40 @@ button#btnRollbackLocations {
     appearance:button;
     -moz-appearance:button;
     -webkit-appearance:button;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0px;
+    color: #000000;
+    padding: 2px;
+    background: #eee;
+    border: solid #000000 1px;
+    text-decoration: none;
 }
-.roundtrip-add_points {
+.roundtrip-add_points, .roundtrip-config-solver {
     display:none;
 }
 .marker-item {
     display:block;
 }
 .marker-item {
-    border-bottom: 0.1em solid #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
     cursor: pointer;
     display: block;
     font-size: 75%;
     margin-top: 1em;
     padding-bottom: 0.5em;
+}
+.options-listbox > div {
+    display: block;
+    margin-bottom: 4px;
+    width: 100%;
+}
+.options-listbox .solver-travelmodebox label, .options-listbox .solver-travelmodebox select {
+    display: block;
+}
+.options-listbox .solver-travelmodebox select {
+    margin-top: 2px;
+    width: 100%;
 }
 @media screen and (orientation:portrait) {
     .paddedContent {
@@ -111,7 +145,7 @@ button#btnRollbackLocations {
     .roundtrip-welcome > h4, .roundtrip-welcome > div {
         display:none;
     }
-    .roundtrip-add_points {
+    .roundtrip-add_points, .roundtrip-config-solver {
         height:160px;
     }
     .markers-list {
@@ -120,6 +154,12 @@ button#btnRollbackLocations {
         overflow: auto;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
+    }
+    button#btnRouteAZtrip {
+        bottom: 5px;
+        left: 8em;
+        position: absolute;
+        width: 8em;
     }
 }
 @media screen and (orientation:landscape) {
@@ -146,5 +186,15 @@ button#btnRollbackLocations {
         width: 96%;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
+    }
+    button#btnRouteRoundtrip {
+        width: 8em;
+    }
+    button#btnRouteAZtrip {
+        bottom: 3em;
+        left: 5px;
+        position: absolute;
+        width: 8em;
+        text-align: left;
     }
 }
