@@ -29,8 +29,8 @@ var Onamero = (function (w, hb, $) {
     var handleFooterResize = function () {
         if (currStep === 1) {
             if (w.portrait === true) {
-                $('#footer').css('height', '30px');
-                $('.paddedContent').css('height', '100%');
+                $('#footer').css('height', '40px');
+                $('.paddedContent').css('height', '30em');
             } else {
                 $('#footer').css('height', '84%');
                 $('.paddedContent').css('height', '100%');
@@ -38,7 +38,7 @@ var Onamero = (function (w, hb, $) {
         } else if (currStep > 1) {
             if (w.portrait === true) {
                 $('#footer').css('height', '200px');
-                $('.paddedContent').css('height', '53%');
+                $('.paddedContent').css('height', '17.5em');
             } else {
                 $('#footer').css('height', '84%');
                 $('.paddedContent').css('height', '100%');

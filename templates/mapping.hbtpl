@@ -13,7 +13,7 @@
         <section class="roundtrip-welcome roundtrip-box">
             <h4>Iniciar recorrido</h4>
             <div>A continuación podrá seleccionar unas cuantas coordenadas en el mapa para armar un recorrido.<br/>Con &eacute;stos se obtendr&aacute; una ruta &Oacute;ptima.</div>
-            <button id="btnToogleRoundTrip" type="button">Iniciar</button>
+            <button id="btnToogleRoundTrip" class="class="button"x" type="button">Iniciar</button>
         </section>
         <section class="roundtrip-add_points roundtrip-box">
             <h4>Agregar coordenadas</h4>
@@ -25,8 +25,8 @@
                 <span class="marker-item marker04"></span>
                 <span class="marker-item marker05"></span>
             </div>
-            <button id="btnCommitLocations" type="button">Continuar</button>
-            <button id="btnRollbackLocations" type="button">Volver</button>
+            <button id="btnCommitLocations" class="button" type="button">Continuar</button>
+            <button id="btnRollbackLocations" class="button" type="button">Volver</button>
         </section>
     </div>
 </div>
