@@ -5,6 +5,7 @@
         <div style='clear:both'></div>
     </div>
     <div id="content">
+        <div class="progressbox-routing">Generando ruta ...&nbsp;<i></i></div>
         <div class="paddedContent">
             <div id="map_canvas" style="width: 100%; height: 100%;">cargando...</div>
         </div>
@@ -33,12 +34,6 @@
                     </select>
                 </div>
                 <div>
-                    <label for="routeOptDoOptimized">
-                        <input type="checkbox" name="routeOptDoOptimized" id="routeOptDoOptimized"/>
-                        <span>Optimizado</span>
-                    </label>
-                </div>
-                <div>
                     <label for="routeOptAvoidHighways">
                         <input type="checkbox" name="routeOptAvoidHighways" id="routeOptAvoidHighways"/>
                         <span>Evitar autopistas</span>
@@ -51,9 +46,18 @@
                     </label>
                 </div>
             </div>
-            <button id="btnRouteRoundtrip" class="button" type="button">Ida y vuelta</button>
-            <button id="btnRouteAZtrip" class="button" type="button">Viaje ordenado</button>
+            <button id="btnRouteAZtrip" data-tspsolver-mode="0" class="button btn-solve-routing" type="button">Viaje ordenado</button>
+            <button id="btnRouteRoundtrip" data-tspsolver-mode="1" class="button btn-solve-routing" type="button">Ida y vuelta</button>
             <button id="btnRollbackOptions" class="button" type="button">Volver</button>
         </section>
+        <section class="roundtrip-solver-results roundtrip-box">
+            <h4>Ruta encontrada</h4>
+            <div class="results-detailbox">
+                <div class="result-header"></div>
+                <div class="result-rows">
+                </div>
+            </div>
+            <button id="btnResetRoute" class="button" type="button">Nueva ruta</button>
+        </div>
     </div>
 </div>

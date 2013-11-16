@@ -85,7 +85,7 @@ button#btnRouteAZtrip {
     width: 8em;
     text-align: left;
 }
-button#btnRollbackLocations, button#btnRollbackOptions {
+button#btnRollbackLocations, button#btnRollbackOptions, button#btnResetRoute {
     position:absolute;
     bottom:5px;
     right:5px;
@@ -96,6 +96,11 @@ button#btnRollbackLocations, button#btnRollbackOptions {
 .roundtrip-box h4 {
     margin: 2px 2px 10px;
 }
+button:disabled {
+    background: none repeat scroll 0 0 #CCCCCC;
+    border: 1px solid #222222;
+    color: #333333;
+}
 .button {
     font-family:'Roboto', sans-serif;
     font-size: small;
@@ -105,13 +110,13 @@ button#btnRollbackLocations, button#btnRollbackOptions {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0px;
-    color: #000000;
     padding: 2px;
-    background: #eee;
-    border: solid #000000 1px;
+    background: none repeat scroll 0 0 #B6004B;
+    border: 1px solid #6A002B;
+    color: #FFFFFF;
     text-decoration: none;
 }
-.roundtrip-add_points, .roundtrip-config-solver {
+.roundtrip-add_points, .roundtrip-config-solver, .roundtrip-solver-results {
     display:none;
 }
 .marker-item {
@@ -119,7 +124,6 @@ button#btnRollbackLocations, button#btnRollbackOptions {
 }
 .marker-item {
     border-bottom: 1px solid #DDDDDD;
-    cursor: pointer;
     display: block;
     font-size: 75%;
     margin-top: 1em;
@@ -136,6 +140,17 @@ button#btnRollbackLocations, button#btnRollbackOptions {
 .options-listbox .solver-travelmodebox select {
     margin-top: 2px;
     width: 100%;
+}
+.progressbox-routing {
+    display:none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #444444;
+    left: 0.3em;
+    margin: 0 auto;
+    padding: 2px;
+    position: fixed;
+    top: 4.2em;
+    z-index: 2000;
 }
 @media screen and (orientation:portrait) {
     .paddedContent {
