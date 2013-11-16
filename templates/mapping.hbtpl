@@ -28,5 +28,13 @@
             <button id="btnCommitLocations" class="button" type="button">Continuar</button>
             <button id="btnRollbackLocations" class="button" type="button">Volver</button>
         </section>
+        <section class="roundtrip-config-solver roundtrip-box">
+            <h4>Opciones </h4>
+            <div class="options-listbox">
+                
+            </div>
+            <button id="btnCommitOptions" class="button" type="button">Continuar</button>
+            <button id="btnRollbackOptions" class="button" type="button">Volver</button>
+        </section>
     </div>
 </div>

@@ -52,6 +52,7 @@ var Onamero = (function (w, hb, $) {
         var myOptions = {
             zoom: 8,
             center: detLatLng,
+            disableDefaultUI: true,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(w.document.getElementById("map_canvas"), myOptions);
@@ -78,7 +79,6 @@ var Onamero = (function (w, hb, $) {
     };
 
     var prepareMapControls = function (google) {
-        var markerImg = "http://google-maps-icons.googlecode.com/files/gray_nro_.png";
         $('button#btnToogleRoundTrip').on(clickEvt(), function (e) {
             e.preventDefault();
             currStep = 2;
@@ -105,7 +105,23 @@ var Onamero = (function (w, hb, $) {
         });
         $('button#btnRollbackLocations').on(clickEvt(), function (e) {
             e.preventDefault();
-            markers.forEach(function(mkr,i){
+            markers.forEach(function (mkr, i) {
+                mkr.setMap(null);
+            });
+            markers.clear();
+            $('.marker-item').html('');
+            google.maps.event.removeListener(manageMarkersEvent);
+            manageMarkersEvent = null;
+            markers = null;
+            currStep = 1;
+            markerCount = 0;
+            handleFooterResize();
+            $('.roundtrip-box').hide();
+            $('section.roundtrip-welcome').show();
+        });
+        $('button#btnRollbackLocations').on(clickEvt(), function (e) {
+            e.preventDefault();
+            markers.forEach(function (mkr, i) {
                 mkr.setMap(null);
             });
             markers.clear();
