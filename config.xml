@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="gov.dane.sige.phonegap.tsp_routes" version="1.0.0">
     <name>Prototipo Rutas</name>
-    <description>Phonegap Application for Routing and TSP Demos</description>
+    <description>Phonegap Routing and TSP Demo</description>
     <author href="http://www.dane.gov.co" email="sige@dane.gov.co">SIGE</author>
     <!-- Some features-->
     <feature name="http://api.phonegap.com/1.0/device" />
