@@ -33,7 +33,7 @@ var Onamero = (function (w, hb, $) {
         if (currStep === 1) {
             if (w.portrait === true) {
                 $('#footer').css('height', '40px');
-                $('.paddedContent').css('height', '30em');
+                $('.paddedContent').css('height', '90%');
             } else {
                 $('#footer').css('height', '84%');
                 $('.paddedContent').css('height', '100%');
@@ -41,7 +41,7 @@ var Onamero = (function (w, hb, $) {
         } else if (currStep > 1) {
             if (w.portrait === true) {
                 $('#footer').css('height', '200px');
-                $('.paddedContent').css('height', '17.5em');
+                $('.paddedContent').css('height', '53%');
             } else {
                 $('#footer').css('height', '84%');
                 $('.paddedContent').css('height', '100%');
