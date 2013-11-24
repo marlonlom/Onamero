@@ -3,7 +3,7 @@ var Onamero = (function (w, hb, $) {
     var o = {};
     var map;
     var templates = {};
-    var markers;
+    var markers = null;
     var manageMarkersEvent;
     var currStep = 1;
     var tspmode = 0;
