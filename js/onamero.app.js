@@ -12,6 +12,9 @@ var Onamero = (function (w, hb, $) {
     var tsp;
     var dirRenderer;
 
+    o.currLat = null;
+    o.currLng = null;
+
     w.portrait = w.innerHeight > w.innerWidth;
 
     templates.mapping_tpl = hb.templates.mapping;
@@ -58,9 +61,16 @@ var Onamero = (function (w, hb, $) {
         var blistener;
 
         var myOptions = {
-            zoom: 8,
+            zoom: 12,
             center: detLatLng,
-            disableDefaultUI: true,
+            panControl: false,
+            scaleControl: false,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
+            },
+            streetViewControl: false,
+            mapTypeControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
@@ -71,17 +81,18 @@ var Onamero = (function (w, hb, $) {
         map.fitBounds(bounds);
 
         tsp = new BpTspSolver(map, document.getElementById("my_textual_div"));
-        tsp.setDirectionUnits("m");
+        tsp.setDirectionUnits("km");
         google.maps.event.addListener(tsp.getGDirectionsService(), "error", function () {
             alert("Request failed. ");
         });
 
-
         blistener = google.maps.event.addListener(map, 'bounds_changed', function (event) {
-            if (this.getZoom() > 13) {
-                this.setZoom(13);
+            if (this.getZoom() < 10) {
+                this.setZoom(10);
             }
-            google.maps.event.removeListener(blistener);
+            if (this.getZoom() > 16) {
+                this.setZoom(16);
+            }
         });
 
         google.maps.event.addDomListener(w, 'resize', function () {
@@ -89,6 +100,15 @@ var Onamero = (function (w, hb, $) {
             setViewportToCover();
             handleFooterResize();
         });
+
+        /*w.navigator.geolocation.getCurrentPosition(function (position) {
+            var bounds = new google.maps.LatLngBounds();
+            bounds.extend(new google.maps.LatLng(lat, lng));
+            map.fitBounds(bounds);
+        }, function (e) {
+            console.log('code: ' + error.code + '\n' +
+                'message: ' + error.message + '\n');
+        });*/
 
         prepareMapControls(google);
     };
@@ -204,20 +224,49 @@ var Onamero = (function (w, hb, $) {
     };
 
     var formatDirections = function (gdir) {
+        $('.itinerary-detailbox').html('');
         if (gdir) {
             var details = '';
+            var bounds = new google.maps.LatLngBounds();
+            var legsCount = gdir.legs.length;
             $.each(gdir.legs, function (i, leg) {
-                details += '<div class="route-header"><b>' + leg.start_address + '</b></div>';
-                console.log('leg.start_location', leg.start_location.toString());
+
+                bounds.extend(leg.start_location);
+
+                details += '<div class="route-header route-item" >';
+                details += '<img src="img/push-pin.png" width="22" height="22" ';
+                details += 'data-route-location-lat="' + leg.start_location.lat() + '" data-route-location-lng="' + leg.start_location.lng() + '">';
+                details += '<b>' + leg.start_address + '</b></div>';
                 $.each(leg.steps, function (j, step) {
-                    details += '<div class="route-steps">';
+                    details += '<div class="route-steps route-item">';
+                    details += '<img src="img/push-pin-2.png" width="22" height="22" ';
+                    details += 'data-route-location-lat="' + step.start_location.lat() + '" data-route-location-lng="' + step.start_location.lng() + '">';
                     details += '<span>' + step.instructions + '</span>';
-                    details += '<i style="display:block;">' + step.distance.text + '</i>';
+                    details += '<i style="display:block;">' + step.distance.text + ', ' + step.duration.text + '</i>';
                     details += '</div>';
-                    console.log('step.instructions[' + j + ']', step.instructions);
                 });
+                if (i === legsCount - 1) {
+                    details += '<div class="route-header route-item last-route" >';
+                    details += '<img src="img/push-pin.png" width="22" height="22" ';
+                    details += 'data-route-location-lat="' + leg.end_location.lat() + '" data-route-location-lng="' + leg.end_location.lng() + '">';
+                    details += '<b>' + leg.end_address + '</b></div>';
+                }
             });
+
             $('.itinerary-detailbox').html(details);
+
+            map.fitBounds(bounds);
+
+            $('.route-item img').on(clickEvt(), function (e) {
+                e.preventDefault();
+                var ptlat = $(this).attr('data-route-location-lat') || '';
+                var ptlng = $(this).attr('data-route-location-lng') || '';
+                if (ptlat !== '' && ptlng !== '') {
+                    var bounds = new google.maps.LatLngBounds();
+                    bounds.extend(new google.maps.LatLng(ptlat, ptlng));
+                    map.fitBounds(bounds);
+                }
+            });
         }
     };
 
@@ -227,7 +276,6 @@ var Onamero = (function (w, hb, $) {
         $('section.roundtrip-config-solver button').prop('disabled', false);
         var dirRes = mytsp.getGDirections();
         var dir = dirRes.routes[0];
-        console.log('directions', dir);
         if (dirRenderer != null) {
             dirRenderer.setMap(null);
         }

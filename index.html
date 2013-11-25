@@ -18,16 +18,15 @@
         <script type="text/javascript" charset="utf-8" src="js/onamero.app.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/BpTspSolver.js"></script>
         <script type="text/javascript">
-            
-            if (!$) {$ = Zepto};
-            
+            if (!$) {
+                $ = Zepto
+            };
+
             document.addEventListener("online", function(e) {
-                Onamero.gmapsLibraryLoaded = true;
                 Onamero.showMappingView();
             }, false);
 
             document.addEventListener("offline", function(e) {
-                Onamero.gmapsLibraryLoaded = false;
                 Onamero.showOfflineView();
             }, false);
 
@@ -43,10 +42,10 @@
                     Onamero.showMappingView();
                 }
             }, false);
+            
         </script>
     </head>
     
-    <body>
-    </body>
+    <body></body>
 
 </html>

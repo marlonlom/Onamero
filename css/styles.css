@@ -22,10 +22,9 @@ div#header {
 div#content {
     bottom: 0;
     float: left;
-    margin-top: 51px;
+    top: 51px;
     overflow: hidden;
     position: absolute;
-    top: 0;
     width: 100%;
 }
 div#container {
@@ -159,15 +158,28 @@ button:disabled {
     z-index: 2000;
 }
 .itinerary-detailbox > div.route-header {
-    display:block;
-    border-bottom: 1px solid #444;
-    margin:2px;
+    display: block;
+    border: 1px solid #ccc;
+    margin: 2px;
+    min-height: 24px;
+    padding: 5px;
+    background: #ddffdd;
+}
+.itinerary-detailbox > .last-route {
+    background: #bcf19a !important;
 }
 .itinerary-detailbox > .route-steps {
-    display:block;
-    border-bottom: 1px solid #444;
-    margin:2px;
-    padding-left:3px;
+    border: 1px solid #D6D6D6;
+    display: block;
+    margin: 2px;
+    padding: 5px;
+}
+.itinerary-detailbox > .route-item > i{
+    text-align:right;
+}
+.itinerary-detailbox > .route-item > img {
+    float:left;
+    margin-right: 10px;
 }
 @media screen and (orientation:portrait) {
     .paddedContent {
@@ -180,7 +192,7 @@ button:disabled {
     .roundtrip-add_points, .roundtrip-config-solver {
         height:160px;
     }
-    .markers-list{
+    .markers-list {
         display: block;
         height: 64%;
         overflow: auto;
