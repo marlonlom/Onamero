@@ -51,9 +51,9 @@
             <button id="btnRollbackOptions" class="button" type="button">Volver</button>
         </section>
         <section class="roundtrip-solver-results roundtrip-box">
-            <h4>Ruta encontrada</h4>
-            <div class="results-detailbox">
-                <div class="result-header"></div>
+            <h4>Itinerario</h4>
+            <div class="itinerary-detailbox">
+                <div class="route-header"></div>
                 <div class="result-rows">
                 </div>
             </div>

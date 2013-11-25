@@ -1,0 +1,39 @@
+
+C:\Users\MarlonJosé\Documents\GitHub\Onamero>handlebars --help > joda.txt
+Precompile handlebar templates.
+Usage: node C:\Users\MarlonJosé\AppData\Roaming\npm\node_modules\handlebars\bin\
+handlebars template...
+
+Options:
+  -f, --output         Output File
+               [string]
+  -a, --amd            Exports amd style (require.js)
+               [boolean]
+  -c, --commonjs       Exports CommonJS style, path to Handlebars module
+               [string]  [default: null]
+  -h, --handlebarPath  Path to handlebar.js (only valid for amd-style)
+               [string]  [default: ""]
+  -k, --known          Known helpers
+               [string]
+  -o, --knownOnly      Known helpers only
+               [boolean]
+  -m, --min            Minimize output
+               [boolean]
+  -n, --namespace      Template namespace
+               [string]  [default: "Handlebars.templates"]
+  -s, --simple         Output template function only.
+               [boolean]
+  -r, --root           Template root. Base value that will be stripped from temp
+late names.    [string]
+  -p, --partial        Compiling a partial template
+               [boolean]
+  -d, --data           Include data when compiling
+               [boolean]
+  -e, --extension      Template extension.
+               [string]  [default: "handlebars"]
+  -b, --bom            Removes the BOM (Byte Order Mark) from the beginning of t
+he templates.  [boolean]
+
+Must define at least one template or directory.
+
+C:\Users\MarlonJosé\Documents\GitHub\Onamero>cd Documents\GitHub\Onamero\

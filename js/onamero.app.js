@@ -78,8 +78,8 @@ var Onamero = (function (w, hb, $) {
 
 
         blistener = google.maps.event.addListener(map, 'bounds_changed', function (event) {
-            if (this.getZoom() > 12) {
-                this.setZoom(12);
+            if (this.getZoom() > 13) {
+                this.setZoom(13);
             }
             google.maps.event.removeListener(blistener);
         });
@@ -114,14 +114,14 @@ var Onamero = (function (w, hb, $) {
 
             manageMarkersEvent = google.maps.event.addListener(map, 'click', function (e) {
                 if (markerCount < markerLimit) {
-                    var mkc = (markerCount + 1),
-                        mk_title = markerCount === 1 ? 'ubicación #1' : 'ubicación #' + mkc,
-                        cmarker = new google.maps.Marker({
-                            position: e.latLng,
-                            icon: 'http://google-maps-icons.googlecode.com/files/gray0' + mkc + '.png',
-                            map: map,
-                            title: mk_title
-                        });
+                    var mkc = (markerCount + 1);
+                    var mk_title = markerCount === 1 ? 'ubicación #1' : 'ubicación #' + mkc;
+                    var cmarker = new google.maps.Marker({
+                        position: e.latLng,
+                        icon: 'http://google-maps-icons.googlecode.com/files/gray0' + mkc + '.png',
+                        map: map,
+                        title: mk_title
+                    });
                     $('.markers-list').append('<span class="marker-item marker' + mkc + '">' + mkc + '.&nbsp;' + e.latLng.toString() + '</span>');
                     markers.insertAt(markerCount, cmarker);
                     markerCount++;
@@ -204,7 +204,21 @@ var Onamero = (function (w, hb, $) {
     };
 
     var formatDirections = function (gdir) {
-
+        if (gdir) {
+            var details = '';
+            $.each(gdir.legs, function (i, leg) {
+                details += '<div class="route-header"><b>' + leg.start_address + '</b></div>';
+                console.log('leg.start_location', leg.start_location.toString());
+                $.each(leg.steps, function (j, step) {
+                    details += '<div class="route-steps">';
+                    details += '<span>' + step.instructions + '</span>';
+                    details += '<i style="display:block;">' + step.distance.text + '</i>';
+                    details += '</div>';
+                    console.log('step.instructions[' + j + ']', step.instructions);
+                });
+            });
+            $('.itinerary-detailbox').html(details);
+        }
     };
 
     var onTSPSolveCallback = function (mytsp) {
@@ -213,6 +227,7 @@ var Onamero = (function (w, hb, $) {
         $('section.roundtrip-config-solver button').prop('disabled', false);
         var dirRes = mytsp.getGDirections();
         var dir = dirRes.routes[0];
+        console.log('directions', dir);
         if (dirRenderer != null) {
             dirRenderer.setMap(null);
         }
@@ -228,9 +243,9 @@ var Onamero = (function (w, hb, $) {
         });
         currStep = 3;
         handleFooterResize();
-        
-            $('.roundtrip-box').hide();
-            $('section.roundtrip-solver-results').show();
+
+        $('.roundtrip-box').hide();
+        $('section.roundtrip-solver-results').show();
     };
 
     var loadGoogleMapsScript = function () {

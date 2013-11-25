@@ -66,10 +66,15 @@ img.dane_logo02 {
     height: 40px;
     width: 100px;
 }
-button#btnStartRoundTrip, button#btnCommitLocations {
+button#btnCommitLocations {
     position:absolute;
     bottom:5px;
     left:5px;
+}
+button#btnStartRoundTrip {
+    position:absolute;
+    bottom:5px;
+    right:5px;
 }
 button#btnRouteRoundtrip {
     position:absolute;
@@ -95,6 +100,7 @@ button#btnRollbackLocations, button#btnRollbackOptions, button#btnResetRoute {
 }
 .roundtrip-box h4 {
     margin: 2px 2px 10px;
+    font-size: 120%;
 }
 button:disabled {
     background: none repeat scroll 0 0 #CCCCCC;
@@ -125,7 +131,7 @@ button:disabled {
 .marker-item {
     border-bottom: 1px solid #DDDDDD;
     display: block;
-    font-size: 75%;
+    font-size: 90%;
     margin-top: 1em;
     padding-bottom: 0.5em;
 }
@@ -152,20 +158,38 @@ button:disabled {
     top: 4.2em;
     z-index: 2000;
 }
+.itinerary-detailbox > div.route-header {
+    display:block;
+    border-bottom: 1px solid #444;
+    margin:2px;
+}
+.itinerary-detailbox > .route-steps {
+    display:block;
+    border-bottom: 1px solid #444;
+    margin:2px;
+    padding-left:3px;
+}
 @media screen and (orientation:portrait) {
     .paddedContent {
         height: 100%;
         margin: 0px;
     }
-    .roundtrip-welcome > h4, .roundtrip-welcome > div {
+    .roundtrip-welcome > div {
         display:none;
     }
     .roundtrip-add_points, .roundtrip-config-solver {
         height:160px;
     }
-    .markers-list {
+    .markers-list{
         display: block;
         height: 64%;
+        overflow: auto;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    .itinerary-detailbox {
+        display: block;
+        height: 12em;
         overflow: auto;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
@@ -194,9 +218,9 @@ button:disabled {
     .roundtrip-welcome div {
         display: block;
     }
-    .markers-list {
+    .markers-list, .itinerary-detailbox {
         display: block;
-        height: 12em;
+        height: 19em;
         overflow: auto;
         width: 96%;
         overflow-y: scroll;
