@@ -1,0 +1,18 @@
+<div id="container">
+    <div id="header">
+        <img src="img/header01.png" class="dane_logo01">
+        <img src="img/header02.png" class="dane_logo02">
+        <div style='clear:both'></div>
+    </div>
+    <div id="content">
+        <div class="paddedContent">
+            <div class='offline-infobox'>
+                <img width="200" height="200" src="img/network-wireless-disconnected.png"/>
+                <div class="check-internet-infobox">
+                    <span>No hay conexi&oacute;n a internet. Intentalo m&aacute;s tarde.</span>
+                    <button class="button" id="btnCheckConnection">Revisar conexi&oacute;n</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

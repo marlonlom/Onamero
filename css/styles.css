@@ -174,12 +174,26 @@ button:disabled {
     margin: 2px;
     padding: 5px;
 }
-.itinerary-detailbox > .route-item > i{
+.itinerary-detailbox > .route-item > i {
     text-align:right;
 }
 .itinerary-detailbox > .route-item > img {
     float:left;
     margin-right: 10px;
+}
+.offline-infobox {
+    width:100%;
+    text-align:center !important;
+}
+.check-internet-infobox span {
+    font-size: 110%;
+    display:block;
+    margin-bottom:2em;
+}
+.check-internet-infobox button {
+    display: block;
+    font-size: 110%;
+    margin: 0 auto;
 }
 @media screen and (orientation:portrait) {
     .paddedContent {
@@ -211,6 +225,11 @@ button:disabled {
         left: 8em;
         position: absolute;
         width: 8em;
+    }
+    .offline-infobox > img {
+        height: 200px;
+        width: 200px;
+        margin:5px;
     }
 }
 @media screen and (orientation:landscape) {
@@ -247,5 +266,10 @@ button:disabled {
         position: absolute;
         width: 8em;
         text-align: left;
+    }
+    .offline-infobox > img {
+        height: 160px;
+        margin:5px;
+        width: 160px;
     }
 }

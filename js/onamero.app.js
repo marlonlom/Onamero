@@ -10,14 +10,12 @@ var Onamero = (function (w, hb, $) {
     var markerCount = 0;
     var markerLimit = 5;
     var tsp;
-    var dirRenderer;
-
-    o.currLat = null;
-    o.currLng = null;
+    var dirRenderer = null;
 
     w.portrait = w.innerHeight > w.innerWidth;
 
     templates.mapping_tpl = hb.templates.mapping;
+    templates.offline_tpl = hb.templates.offline;
 
     var customAlertHandling = function (message, title) {
         if (w.navigator.notification) {
@@ -58,10 +56,8 @@ var Onamero = (function (w, hb, $) {
         var bounds = new google.maps.LatLngBounds();
         var detLatLng = new google.maps.LatLng(4.587376, -74.075317);
 
-        var blistener;
-
         var myOptions = {
-            zoom: 12,
+            zoom: 13,
             center: detLatLng,
             panControl: false,
             scaleControl: false,
@@ -76,17 +72,13 @@ var Onamero = (function (w, hb, $) {
 
         map = new google.maps.Map(w.document.getElementById("map_canvas"), myOptions);
 
-        var currCenter = map.getCenter();
-        bounds.extend(detLatLng);
-        map.fitBounds(bounds);
-
         tsp = new BpTspSolver(map, document.getElementById("my_textual_div"));
         tsp.setDirectionUnits("km");
         google.maps.event.addListener(tsp.getGDirectionsService(), "error", function () {
             alert("Request failed. ");
         });
 
-        blistener = google.maps.event.addListener(map, 'bounds_changed', function (event) {
+        google.maps.event.addListener(map, 'bounds_changed', function (event) {
             if (this.getZoom() < 10) {
                 this.setZoom(10);
             }
@@ -211,10 +203,34 @@ var Onamero = (function (w, hb, $) {
                 mkr.setMap(null);
             });
             markers.clear();
-            $('.marker-item').html('');
+            $('.markers-list').html('');
             google.maps.event.removeListener(manageMarkersEvent);
             manageMarkersEvent = null;
-            markers = null;
+            markers.clear();
+            currStep = 1;
+            markerCount = 0;
+            handleFooterResize();
+            $('.roundtrip-box').hide();
+            $('section.roundtrip-welcome').show();
+        });
+        $('button#btnResetRoute').on(clickEvt(), function (e) {
+            e.preventDefault();
+            var wpoints = tsp.getWaypoints();
+            $.each(wpoints, function (i, wp) {
+                tsp.removeWaypoint(wp);
+            });
+            markers.forEach(function (mkr, i) {
+                mkr.setMap(null);
+            });
+            markers.clear();
+            $('.markers-list,.itinerary-detailbox').html('');
+            $('.options-listbox input[type=\'checkbox\']').prop('checked', false);
+            $('.options-listbox select').val('');
+            manageMarkersEvent = null;
+            if (dirRenderer !== null) {
+                dirRenderer.setMap(null);
+                dirRenderer = null;
+            }
             currStep = 1;
             markerCount = 0;
             handleFooterResize();
@@ -276,8 +292,9 @@ var Onamero = (function (w, hb, $) {
         $('section.roundtrip-config-solver button').prop('disabled', false);
         var dirRes = mytsp.getGDirections();
         var dir = dirRes.routes[0];
-        if (dirRenderer != null) {
+        if (dirRenderer !== null) {
             dirRenderer.setMap(null);
+            dirRenderer = null;
         }
         formatDirections(dir);
         dirRenderer = new google.maps.DirectionsRenderer({
@@ -310,7 +327,20 @@ var Onamero = (function (w, hb, $) {
     };
 
     var showOfflineScreen = function () {
-        $('body').html('');
+        $('body').html(templates.offline_tpl({}));
+        $('button#btnCheckConnection').on(clickEvt(),function(e){
+            e.preventDefault();
+            checkConnectionStatus();
+        });
+    };
+
+    var checkConnectionStatus = function () {
+        if ((navigator.network.connection.type).toUpperCase() != "NONE" &&
+            (navigator.network.connection.type).toUpperCase() != "UNKNOWN") {
+            Onamero.showMappingView();
+        }else{
+            Onamero.showOfflineView();
+        }
     };
 
     o.showAlert = customAlertHandling;
